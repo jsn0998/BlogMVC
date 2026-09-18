@@ -1,5 +1,6 @@
 using BlogMVC.Datos;
 using BlogMVC.Entidades;
+using BlogMVC.Servicios;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
+builder.Services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
 
 /*
     Se usa AddDbContextFactory porque en este proyecto se integrara o inyectara el DbContext en Blazor

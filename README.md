@@ -8,3 +8,10 @@ La parte de la inteligencia artificial la estaremos dejando para el siguiente m√
 Comandos para usar: Consola del administrador de paquetes
 Add-Migration SistemaDeUusarios
 Update-Database
+
+
+Add-Migration TablasEntradasYComentarios: Se crean las tablas en base a los modelos creado y a los DbSet establecidos en la clase ApplicationDbContext del proyecto (CTRL+ ,)
+Update-Database
+
+
+Remove-Migration: Remover la mas reciente migracion (Add-Migration)

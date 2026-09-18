@@ -8,10 +8,14 @@ namespace BlogMVC.Datos
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+
         }
 
         protected ApplicationDbContext()
         {
         }
+
+        public DbSet<Entrada> Entradas { get; set; }
+        public DbSet<Comentario> Comentarios { get; set; }
     }
 }

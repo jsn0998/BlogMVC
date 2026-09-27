@@ -16,6 +16,9 @@
 <div class="card">
     <div class="card-body">
         <form asp-action="Login">
+
+                <input type="hidden" asp-action="UrlRetorno" value="@ViewData["urlRetorno"]"  />
+
                 @* Div que contiene el resument de los mensajes de error *@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 

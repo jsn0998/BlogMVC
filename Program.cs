@@ -1,11 +1,15 @@
 using BlogMVC.Datos;
 using BlogMVC.Entidades;
 using BlogMVC.Servicios;
+using BlogMVC.Utilidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+/* Configuracion de tecnologia razor para cargarlo en el servidor */
+builder.Services.AddServerSideBlazor();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -19,7 +23,11 @@ builder.Services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
 */
 builder.Services.AddDbContextFactory<ApplicationDbContext>(opciones =>
 {
-    opciones.UseSqlServer("name=DefaultConnection");
+    opciones.UseSqlServer("name=DefaultConnection")
+
+    /* Tener la logica de DataSeeding en una clase especifica */
+    .UseSeeding(Seeding.Aplicar)
+    .UseAsyncSeeding(Seeding.AplicarAsync);
 });
 
 /* 
@@ -28,7 +36,7 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(opciones =>
 */
 builder.Services.AddIdentity<Usuario, IdentityRole>(opciones =>
 {
-    opciones.SignIn.RequireConfirmedAccount = false;
+    opciones.SignIn.RequireConfirmedAccount = false;// Significa requerir una cuenta confirmada para evitar confirmar la cuenta con un correo real
 }).AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
@@ -62,6 +70,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+/* Para manejar todo lo relacionado a las peticiones de razor (componentes de blazor) */
+app.MapBlazorHub();
 
 
 app.Run();

@@ -1,0 +1,34 @@
+﻿@model UsuariosRolesUsuarioViewModel
+@{
+    ViewData["Title"] = "Asignar o Remover roles";
+}
+
+<h3>Asiganer o remover roles al usuario: @Model.Email</h3>
+
+<p>Roles: </p>
+
+<form asp-action="EditarRoles">
+    <input type="hidden" asp-for="UsuarioId" />
+
+    @foreach (var role in Model.Roles)
+    {
+            <div class="form-check">
+                <input 
+                    type="checkbox" 
+                    name="RolesSeleccionados" 
+                    class="form-check-input" 
+                    value="@role.Nombre" id="@role.Nombre"
+                    @(role.LoTiene ? "checked" : "")          
+                />
+
+                <label class="form-check-label" for="@role.Nombre">@role.Nombre</label>
+            </div>
+    }
+
+    <button class="btn btn-primary mt-2">Salvar cambios</button>
+    <a class="btn btn-secondary mt-2" asp-action="Listado">Cancelar</a>
+ </form>
+
+
+
+

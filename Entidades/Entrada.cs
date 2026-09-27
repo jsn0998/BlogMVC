@@ -17,7 +17,7 @@ namespace BlogMVC.Entidades
 
         public DateTime FechaPublicacion { get; set; }
 
-        [Required]
+        [Required] 
         public string UsuarioCreacionId { get; set; } = null!;
 
         public Usuario? UsuarioCreacion { get; set; }
@@ -26,9 +26,9 @@ namespace BlogMVC.Entidades
 
         public Usuario? UsuarioActualizacion { get; set; }
 
-        public bool Borrado { get; set; }
+        public bool Borrado { get; set; }/* No se eliminar el registro de entrada (publicacion) de la base de datos solo se marcara dicho registro como Borrado */
 
-        public List<Comentario> Comentarios { get; set; } = [];
+        public List<Comentario> Comentarios { get; set; } = [];/* A partir de un registro de la tabla entradas es posible obtner su listado de registro de comentarios correspondientes */
     }
 }
 

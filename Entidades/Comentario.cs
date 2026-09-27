@@ -15,11 +15,10 @@ namespace BlogMVC.Entidades
 
         public DateTime FechaPublicacion { get; set; }
 
-        [Required]
-        public string? UsuarioId { get; set; } = string.Empty;// se estblecio UsuarioId como opcional porque si el usuario es eliminado pues se estableceria UsuarioId = null
+        public string? UsuarioId { get; set; }// se estblecio UsuarioId como opcional porque si el usuario es eliminado pues se estableceria UsuarioId = null
+         
+        public Usuario? Usuario { get; set; }/* Al aplicar el signo ? a Usuario, si el usuario es eliminado de la base de datos, No se eliminara su correspondiente comentario */
 
-        public Usuario? Usuario { get; set; }
-
-        public bool Borrado { get; set; }
+        public bool Borrado { get; set; }/* No se eliminara el registro de comentario de la base de datos solo se marcara dicho registro como Borrado */
     }
 }

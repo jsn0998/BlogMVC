@@ -8,31 +8,36 @@
         /* Permite construir la url en la cual se esta ejecutando mi proyecto de envc*/
         private readonly IHttpContextAccessor httpContextAccessor;
 
+        public AlmacenadorArchivosLocal(IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
+        {
+            this.env = env;
+            this.httpContextAccessor = httpContextAccessor;
+        }
+
         public async Task<string> Almacenar(string contenedor, IFormFile archivo)
         {
             var extension = Path.GetExtension(archivo.FileName);
             /* Crear el nombre del archivo de manera aleatoria */
             var nombreArchivo = $"{Guid.NewGuid()}{extension}";
 
-            /* Folder en el cual se almacenaran los archivos */
+            /* se obtiene el folder en el cual se almacenaran los archivos para eso se combina el env.WebRootPath (wwwrott) y el contendor*/
             string folder = Path.Combine(env.WebRootPath, contenedor);
 
-            if (!Directory.Exists(folder))
+            if (!Directory.Exists(folder))// si el folder no existe se lo creara
             {
                 Directory.CreateDirectory(folder);
             }
 
-            string ruta = Path.Combine(folder, nombreArchivo);
+            string ruta = Path.Combine(folder, nombreArchivo);// ruta del archivo final (combinacion del folder y el nombre del archivo)
 
             /*
-             Se instancia el MemoryStream
-             
+                Se instancia el MemoryStream
             */
             using (var ms = new MemoryStream())
             {
                 await archivo.CopyToAsync(ms);// se copia el archivo al MemoryStream
-                var contenido = ms.ToArray();// convertimos la representacion del MemoryStream en un arreglod de bytes
-                await File.WriteAllBytesAsync(ruta, contenido);// con el arreglo de bytes se puede usar File.WriteAllBytesAsync para escribirt el contenido del archivo en esta ruta
+                var contenido = ms.ToArray();// convertimos la representacion del MemoryStream en un arreglo de bytes
+                await File.WriteAllBytesAsync(ruta, contenido);// con el arreglo de bytes se puede usar File.WriteAllBytesAsync para escribir el contenido del archivo en esta ruta
             }
 
             /* Se construye la url en la cual se encuentra nuestro archivo */
@@ -41,7 +46,8 @@
             /* Construccion de la url */
             var url = $"{request.Scheme}://{request.Host}";
 
-            var urlArchivo = Path.Combine(url, contenedor, nombreArchivo).Replace("\\","/");
+            var urlArchivo = Path.Combine(url, contenedor, nombreArchivo)
+                .Replace("\\","/");// se reeemplaza los sleashes del sistema operativo con los slashes de una url
             return urlArchivo;
 
         }
@@ -49,7 +55,6 @@
         public Task Borrar(string? ruta, string contenedor)
         {
             /* Si la ruta es vacia se retorna que la tarea ha sido completada*/
-
             if (string.IsNullOrEmpty(ruta))
             {
                 return Task.CompletedTask;// se retorna que la tarea ha sido completada
@@ -60,7 +65,6 @@
             var directorioArchivo= Path.Combine(env.WebRootPath,contenedor, nombreArchivo);
 
             /* Si el archivo existe se lo elimina */
-
             if (File.Exists(directorioArchivo))
             {
                 File.Delete(directorioArchivo);

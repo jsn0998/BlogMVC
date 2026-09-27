@@ -2,10 +2,11 @@
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Usuario> SignInManager;
 @{
+
 }
 
-<ul class="nav-bar">
-    @*     Si el usuario esta logueado, se lo saludará*@
+<ul class="navbar-nav ms-auto">
+    @* Si el usuario esta logueado, se lo saludará*@
 
     @if (SignInManager.IsSignedIn(User))
     {

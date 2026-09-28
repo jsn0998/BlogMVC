@@ -16,6 +16,7 @@ namespace BlogMVC.Controllers
         private readonly ApplicationDbContext context;
         private readonly IAlmacenadorArchivos almacenadorArchivos;
         private readonly IServicioUsuarios servicioUsuarios;
+        private readonly IServicioChat servicioChat;
 
         /* Nombre de la carpeta que contendra las imagenes de las publicaciones */
         private readonly string contenedor = "entradas";
@@ -23,11 +24,13 @@ namespace BlogMVC.Controllers
         public EntradasController(
             ApplicationDbContext context,
             IAlmacenadorArchivos almacenadorArchivos,
-            IServicioUsuarios servicioUsuarios
+            IServicioUsuarios servicioUsuarios,
+            IServicioChat servicioChat
             ) {
             this.context = context;
             this.almacenadorArchivos = almacenadorArchivos;
             this.servicioUsuarios = servicioUsuarios;
+            this.servicioChat = servicioChat;
         }
 
         [HttpGet]
@@ -207,6 +210,27 @@ namespace BlogMVC.Controllers
             return RedirectToAction("Detalle", new {id= entradaDB.Id});
         }
 
+
+        /*
+        [HttpGet]
+        public async Task GenerarCuerpo([FromQuery] string titulo)
+        {
+            if (string.IsNullOrWhiteSpace(titulo))
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                await Response.WriteAsync("El título no puede estar vacío");
+                return;
+            }
+
+
+            var texto = await servicioChat.GenerarCuerpo(titulo);
+
+            return Ok(texto);
+        }
+        */
+
+
+        /*
         [HttpGet]
         public async Task<IActionResult> GenerarCuerpo([FromQuery] string titulo)
         {
@@ -217,7 +241,10 @@ namespace BlogMVC.Controllers
 
             var texto = "<p>Este es un artículo de ejemplo</p>";
 
+            // var texto = servicioChat.GenerarCuerpo(titulo);
+
             return Ok(texto);
         }
+        */
     }
 }

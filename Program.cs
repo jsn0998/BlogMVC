@@ -34,6 +34,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
 builder.Services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
+builder.Services.AddTransient<IServicioChat, ServicioChatOpenAI>();
 
 /*
     Se usa AddDbContextFactory porque en este proyecto se integrara o inyectara el DbContext en Blazor

@@ -475,3 +475,13 @@ C:\Users\Usuario\Documents\manuales\proyectosDesarrollo\.Net\BlogMVC\obj\Debug\n
 C:\Users\Usuario\Documents\manuales\proyectosDesarrollo\.Net\BlogMVC\obj\Debug\net10.0\compressed\tctlcccn9f-{0}-wyu7y4jcvb-wyu7y4jcvb.gz
 C:\Users\Usuario\Documents\manuales\proyectosDesarrollo\.Net\BlogMVC\obj\Debug\net10.0\compressed\ocfen2hpyd-{0}-wfr2hj6447-wfr2hj6447.gz
 C:\Users\Usuario\Documents\manuales\proyectosDesarrollo\.Net\BlogMVC\obj\Debug\net10.0\compressed\mue45cef66-{0}-37hbw988tc-37hbw988tc.gz
+C:\laragon\www\#c\BlogMVC\bin\Debug\net10.0\Azure.Storage.Blobs.dll
+C:\laragon\www\#c\BlogMVC\bin\Debug\net10.0\Azure.Storage.Common.dll
+C:\laragon\www\#c\BlogMVC\bin\Debug\net10.0\OpenAI.dll
+C:\laragon\www\#c\BlogMVC\bin\Debug\net10.0\System.IO.Hashing.dll
+C:\laragon\www\#c\BlogMVC\obj\Debug\net10.0\EmbeddedAttribute.cs
+C:\laragon\www\#c\BlogMVC\obj\Debug\net10.0\ValidatableTypeAttribute.cs
+C:\laragon\www\#c\BlogMVC\obj\Debug\net10.0\compressed\mue45cef66-{0}-37hbw988tc-37hbw988tc.gz
+C:\laragon\www\#c\BlogMVC\obj\Debug\net10.0\compressed\xt0g5ij68v-{0}-rtnfl8o70u-rtnfl8o70u.gz
+C:\laragon\www\#c\BlogMVC\obj\Debug\net10.0\compressed\tctlcccn9f-{0}-f7fxoh55ae-f7fxoh55ae.gz
+C:\laragon\www\#c\BlogMVC\obj\Debug\net10.0\compressed\ocfen2hpyd-{0}-68qhiysw0j-68qhiysw0j.gz

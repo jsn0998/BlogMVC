@@ -211,8 +211,9 @@ namespace BlogMVC.Controllers
         }
 
 
-        /*
+        
         [HttpGet]
+        // [Authorize(Roles = $"{Constantes.RolAdmin},${Constantes.CRUDEntradas}")]
         public async Task GenerarCuerpo([FromQuery] string titulo)
         {
             if (string.IsNullOrWhiteSpace(titulo))
@@ -223,12 +224,13 @@ namespace BlogMVC.Controllers
             }
 
 
-            var texto = await servicioChat.GenerarCuerpo(titulo);
-
-            return Ok(texto);
+            /* Obtencion de la respuesta por segmentos de texto */
+            await foreach (var segmento in servicioChat.GenerarCuerpoStream(titulo))
+            {
+                await Response.WriteAsync(segmento);
+                await Response.Body.FlushAsync();/* Envio del segmento de texto al cliente */
+            }
         }
-        */
-
 
         /*
         [HttpGet]

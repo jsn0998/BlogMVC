@@ -11,18 +11,25 @@ using OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
+/*
+builder.Configuration.AddJsonFile(
+    "secret.json",
+    optional: false,
+    reloadOnChange: true
+);
+*/
+
 /* Se coloca los datos del proveedor de configuraciones en una instancia de la clase de ConfiguracionesIA */
 builder.Services.AddOptions<ConfiguracionesIA>()
     .Bind(builder.Configuration.GetSection(ConfiguracionesIA.Seccion))/* Las propiedades de la clase ConfiguracionesIA siempre estaran presentes al momento de cargar la aplicacion */
     .ValidateDataAnnotations()/* Validar las validaciones de las propiedades tales como: Required*/
-    .ValidateOnStart()/* Vlaidar las propiedades al inicio de cargar la aplicaciones */
+    .ValidateOnStart()/* Validar las propiedades al inicio de cargar la aplicacion */
     ;
 
 /* Para configurar los servicios de OpenAI*/
 builder.Services.AddScoped(sp =>
 {
     var configuracionesIA = sp.GetRequiredService<IOptions<ConfiguracionesIA>>();
-
     return new OpenAIClient(configuracionesIA.Value.LlaveOpenAI);/* configuracion del cliente OpenAI con su llave y asi se la puede usar desde cualquier parte d ela aplicacion */
 });
 

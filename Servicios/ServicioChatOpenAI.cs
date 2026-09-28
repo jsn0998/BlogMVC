@@ -85,7 +85,7 @@ namespace BlogMVC.Servicios
             /* Creacion del mensaje del sistema */
             var mensajeDeSistema = new SystemChatMessage(systemPromptGenerarCuerpo);
 
-            /* Creacion del prompt del usuario*/
+            /* Creacion del prompt del usuario */
             var promptUsuario = ObtenerPromptGenerarCuerpo(titulo);
             var mensajeUsuario = new UserChatMessage(promptUsuario);
 

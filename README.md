@@ -41,3 +41,15 @@ Credenciales para OpenAI Platform
 Email: jsn0998@gmail.com
 contraseña: Re@ct0999
 https://platform.openai.com/home
+
+Para utilizar la IA de OpenIA se debe de crear un archivo denominado secret.json
+con el siguiente contenido:
+{
+  "ConfiguracionesIA": {
+    "modeloTexto": "gpt-4o-mini",
+    "modeloImagenes": "dall-e-3",
+    "modeloSentimientos": "gpt-4o-mini",
+     "llaveOpenAI": "clave"
+  }
+}
+

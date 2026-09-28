@@ -1693,5 +1693,5 @@
     }
   },
   "type": "object",
-  "SourceSegments": "C:\\Users\\Usuario\\.nuget\\packages\\system.clientmodel\\1.15.0\\ConfigurationSchema.json;C:\\Users\\Usuario\\.nuget\\packages\\openai\\2.14.0\\ConfigurationSchema.json;C:\\Users\\Usuario\\.nuget\\packages\\azure.core\\1.55.0\\ConfigurationSchema.json"
+  "SourceSegments": "C:\\Users\\User\\.nuget\\packages\\system.clientmodel\\1.15.0\\ConfigurationSchema.json;C:\\Users\\User\\.nuget\\packages\\openai\\2.14.0\\ConfigurationSchema.json;C:\\Users\\User\\.nuget\\packages\\azure.core\\1.55.0\\ConfigurationSchema.json"
 }

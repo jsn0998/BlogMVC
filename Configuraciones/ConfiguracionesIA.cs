@@ -4,7 +4,7 @@ namespace BlogMVC.Configuraciones
 {
     public class ConfiguracionesIA
     {
-        public const string Seccion = "ConfiguracionesIA";
+        public const string Seccion = "ConfiguracionesIA"; 
 
         [Required]
         public required string ModeloTexto { get; set; }

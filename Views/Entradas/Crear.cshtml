@@ -41,27 +41,119 @@
 
 </form>
 
+<div class="modal fade"  id="modal-cuerpo-ia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 ">Artículo generado por la IA</h1>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="output">
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="aceptarCambiosCuerpoIA()">Aceptar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/formulario-entradas.js"></script>      
 
     <script>
-        async function generarCuerpo(){
-            const titulo = document.getElementById("Titulo").value;
-            const respuesta = await fetch('/entradas/GenerarCuerpo?titulo='+encodeURIComponent(titulo),{
-                method: "GET"
-            });
+        const modalCuerpoIA = new bootstrap.Modal(document.getElementById('modal-cuerpo-ia'));
+        let articuloSugeridoPorIA = "";
 
-            /* La respuesta del endpoint sera en formato de texto, el cual sera el texto del cuerpo de la entrada */
-            const contenido = await respuesta.text();
+        async function generarCuerpo() {
 
-            if(!respuesta.ok){
-                alert(contenido);
+            const titulo = document.getElementById("Titulo").value.trim();
+
+            if (!titulo) {
+                alert("Debes ingresar un título para generar el artículo.");
                 return;
             }
 
-            const delta = quill.clipboard.convert({html: contenido});
-            quill.setContents(delta, 'silent');
+            const output = document.getElementById('output');
+
+            output.innerHTML = `
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Generando...</span>
+                    </div>
+                    <p class="mt-2">La IA está generando el artículo...</p>
+                </div>
+            `;
+
+            articuloSugeridoPorIA = "";
+            modalCuerpoIA.show();
+
+            try {
+
+                const respuesta = await fetch('/entradas/GenerarCuerpo?titulo=' + encodeURIComponent(titulo),
+                    {
+                        method: "GET"
+                    }
+                );
+
+                if (!respuesta.ok) {
+                    const contenido = await respuesta.text();
+                    output.innerHTML = "";
+                    alert(contenido);
+                    modalCuerpoIA.hide();
+                    return;
+                }
+
+                const reader = respuesta.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                let articulo = "";
+
+                while (true) {
+
+                    const { value, done } = await reader.read();
+                    if (done) {
+                        break;
+                    }
+                    articulo += decoder.decode(value, {
+                        stream: true
+                    });
+
+                    output.innerHTML = articulo;
+                }
+
+                // Procesar cualquier carácter que haya quedado pendiente
+                articulo += decoder.decode();
+                output.innerHTML = articulo;
+                articuloSugeridoPorIA = articulo;
+
+            } catch (error) {
+
+                console.error(error);
+
+                output.innerHTML = `
+                    <div class="alert alert-danger">
+                        Ocurrió un error al generar el artículo.
+                    </div>
+                `;
+            }
+        }
+
+
+        function aceptarCambiosCuerpoIA(){
+
+            if (!articuloSugeridoPorIA) {
+                return;
+            }
+
+            const delta = quill.clipboard.convert({ html: articuloSugeridoPorIA });
+            quill.setContents(delta, 'silent');// Agregar el contenido alert editor
+            modalCuerpoIA.hide();
         }
     </script>
 }

@@ -1,3 +1,4 @@
+using BlogMVC.Configuraciones;
 using BlogMVC.Datos;
 using BlogMVC.Entidades;
 using BlogMVC.Servicios;
@@ -5,8 +6,25 @@ using BlogMVC.Utilidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
+
+/* Se coloca los datos del proveedor de configuraciones en una instancia de la clase de ConfiguracionesIA */
+builder.Services.AddOptions<ConfiguracionesIA>()
+    .Bind(builder.Configuration.GetSection(ConfiguracionesIA.Seccion))/* Las propiedades de la clase ConfiguracionesIA siempre estaran presentes al momento de cargar la aplicacion */
+    .ValidateDataAnnotations()/* Validar las validaciones de las propiedades tales como: Required*/
+    .ValidateOnStart()/* Vlaidar las propiedades al inicio de cargar la aplicaciones */
+    ;
+
+/* Para configurar los servicios de OpenAI*/
+builder.Services.AddScoped(sp =>
+{
+    var configuracionesIA = sp.GetRequiredService<IOptions<ConfiguracionesIA>>();
+
+    return new OpenAIClient(configuracionesIA.Value.LlaveOpenAI);/* configuracion del cliente OpenAI con su llave y asi se la puede usar desde cualquier parte d ela aplicacion */
+});
 
 /* Configuracion de tecnologia razor para cargarlo en el servidor */
 builder.Services.AddServerSideBlazor();

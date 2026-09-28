@@ -909,10 +909,29 @@
           }
         }
       },
-      "System.ClientModel/1.11.0": {
+      "OpenAI/2.14.0": {
         "type": "package",
         "dependencies": {
-          "System.Memory.Data": "10.0.3"
+          "System.ClientModel": "1.15.0"
+        },
+        "compile": {
+          "lib/net10.0/OpenAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/OpenAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netstandard2.0/OpenAI.targets": {}
+        }
+      },
+      "System.ClientModel/1.15.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory.Data": "10.0.9"
         },
         "compile": {
           "lib/net10.0/System.ClientModel.dll": {
@@ -1106,7 +1125,7 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Memory.Data/10.0.3": {
+      "System.Memory.Data/10.0.9": {
         "type": "package",
         "compile": {
           "lib/net10.0/System.Memory.Data.dll": {
@@ -2953,10 +2972,32 @@
         "packageIcon.png"
       ]
     },
-    "System.ClientModel/1.11.0": {
-      "sha512": "1Wl32zh7TbvN+HAO8NqDuaN0Ao2Qu/0j0NJSrXGDtpUQsTXQYJ3C6hd9/Ds2IrgP4agMQYFoXB35GZfC21ByHw==",
+    "OpenAI/2.14.0": {
+      "sha512": "AeyC3GxbrJ7KRoWDyFeNSUOQQWD9AnNvM7LYQijCcXcqjyr53aGRcf5GBLExcSBzIs0RWYHe+NbzPrHTeuU5zA==",
       "type": "package",
-      "path": "system.clientmodel/1.11.0",
+      "path": "openai/2.14.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "ConfigurationSchema.json",
+        "OpenAI.png",
+        "README.md",
+        "buildTransitive/netstandard2.0/OpenAI.targets",
+        "lib/net10.0/OpenAI.dll",
+        "lib/net10.0/OpenAI.xml",
+        "lib/net8.0/OpenAI.dll",
+        "lib/net8.0/OpenAI.xml",
+        "lib/netstandard2.0/OpenAI.dll",
+        "lib/netstandard2.0/OpenAI.xml",
+        "openai.2.14.0.nupkg.sha512",
+        "openai.nuspec"
+      ]
+    },
+    "System.ClientModel/1.15.0": {
+      "sha512": "y6zQLInrpX+oGL1gXM04DrUSu1O1esWxt4rD/zrujTnzIFChn/noD1OiVVpTrU8ZvglwqO2Uw038svUR3SiAOg==",
+      "type": "package",
+      "path": "system.clientmodel/1.15.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2977,7 +3018,7 @@
         "lib/net9.0/System.ClientModel.xml",
         "lib/netstandard2.0/System.ClientModel.dll",
         "lib/netstandard2.0/System.ClientModel.xml",
-        "system.clientmodel.1.11.0.nupkg.sha512",
+        "system.clientmodel.1.15.0.nupkg.sha512",
         "system.clientmodel.nuspec"
       ]
     },
@@ -3247,10 +3288,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Memory.Data/10.0.3": {
-      "sha512": "MaGhRfGunmrj/nHjtsi9XkhlYJ/ERGWrbA+BiSKNtGnAjc9XlG5EhAvak6VRcX5LYzPF6pBO8nJ613dTgzabig==",
+    "System.Memory.Data/10.0.9": {
+      "sha512": "YweovHiLUoEdbr2Xv8eRqCSkTu1vMms4a6xBHaQiMSFVy32PL+hXv6Vhol2NWOmLHjaVgTyhJ3R52U6JxS6w3Q==",
       "type": "package",
-      "path": "system.memory.data/10.0.3",
+      "path": "system.memory.data/10.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3271,7 +3312,7 @@
         "lib/net9.0/System.Memory.Data.xml",
         "lib/netstandard2.0/System.Memory.Data.dll",
         "lib/netstandard2.0/System.Memory.Data.xml",
-        "system.memory.data.10.0.3.nupkg.sha512",
+        "system.memory.data.10.0.9.nupkg.sha512",
         "system.memory.data.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3350,7 +3391,8 @@
       "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.11",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.12",
       "Microsoft.EntityFrameworkCore.SqlServer >= 10.0.12",
-      "Microsoft.EntityFrameworkCore.Tools >= 10.0.12"
+      "Microsoft.EntityFrameworkCore.Tools >= 10.0.12",
+      "OpenAI >= 2.14.0"
     ]
   },
   "packageFolders": {
@@ -3428,6 +3470,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[10.0.12, )"
+          },
+          "OpenAI": {
+            "target": "Package",
+            "version": "[2.14.0, )"
           }
         },
         "imports": [

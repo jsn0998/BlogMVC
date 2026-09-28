@@ -14,7 +14,7 @@
 <form enctype="multipart/form-data" id="formEntrada" asp-action="Crear">
     <div class="mb-3">
         <label asp-for="Titulo" class="form-label"></label>
-        <input type="text" autocomplete="off" asp-for="Titulo" class="form-control" />
+        <input type="text" autocomplete="off" asp-for="Titulo" id="Titulo"  class="form-control" />
         <span asp-validation-for="Titulo" class="text-danger"></span>
     </div>
 
@@ -22,6 +22,8 @@
         <label asp-for="Cuerpo" class="form-label"></label>
         <input style="display: none;" asp-for="Cuerpo" class="form-control" />
         <div id="editor"></div>
+
+        <button type="button" onclick="generarCuerpo();" class="btn btn-secondary mt-2">Generar</button>
 
         @* Span para los errores de validacion el cuerpo *@    
         <span id="cuerpo-error" class="text-danger"></span>
@@ -42,6 +44,26 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/formulario-entradas.js"></script>      
+
+    <script>
+        async function generarCuerpo(){
+            const titulo = document.getElementById("Titulo").value;
+            const respuesta = await fetch('/entradas/GenerarCuerpo?titulo='+encodeURIComponent(titulo),{
+                method: "GET"
+            });
+
+            /* La respuesta del endpoint sera en formato de texto, el cual sera el texto del cuerpo de la entrada */
+            const contenido = await respuesta.text();
+
+            if(!respuesta.ok){
+                alert(contenido);
+                return;
+            }
+
+            const delta = quill.clipboard.convert({html: contenido});
+            quill.setContents(delta, 'silent');
+        }
+    </script>
 }
 
 

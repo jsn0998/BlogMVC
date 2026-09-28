@@ -6,6 +6,7 @@ using BlogMVC.Utilidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.ClientModel.Primitives;
 
 namespace BlogMVC.Controllers
@@ -204,6 +205,19 @@ namespace BlogMVC.Controllers
             entradaDB.Borrado = borrado;// Eliminado logico, no es fisico
             await context.SaveChangesAsync();
             return RedirectToAction("Detalle", new {id= entradaDB.Id});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GenerarCuerpo([FromQuery] string titulo)
+        {
+            if (string.IsNullOrWhiteSpace(titulo))
+            {
+                return BadRequest("El titulo no puede estar vacio");
+            }
+
+            var texto = "<p>Este es un artículo de ejemplo</p>";
+
+            return Ok(texto);
         }
     }
 }
